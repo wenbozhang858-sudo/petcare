@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adopt a Pet · PET CARE</title>
+<style>
+:root{
+  box-sizing:border-box;
+  --bg:#eef6f7;--ink:#12353b;--muted:#4d6c71;--card:#fff;--accent:#ffc83d;--teal:#1f7a85;--line:#cfe3e6;--warn:#fff4cf;--warnink:#5b4500;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e2226;--ink:#e6f3f4;--muted:#9bbcc0;--card:#16333a;--teal:#5fc4d0;--line:#25474f;--warn:#3a3213;--warnink:#f3dc8a}}
+:root[data-theme="dark"]{--bg:#0e2226;--ink:#e6f3f4;--muted:#9bbcc0;--card:#16333a;--teal:#5fc4d0;--line:#25474f;--warn:#3a3213;--warnink:#f3dc8a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,"Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 48px}
+h1{font-size:clamp(2.8rem,14vw,5rem);line-height:1;margin:48px 0 8px;font-weight:900;letter-spacing:.04em;text-align:center}
+.sub{text-align:center;color:var(--muted);margin:0 0 32px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{font:inherit;cursor:pointer;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:24px;padding:28px 12px;text-align:center;transition:background .2s,border-color .2s,transform .2s}
+.opt .e{display:block;font-size:3.4rem;line-height:1.2}
+.opt b{display:block;font-size:1.4rem}
+.opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#12353b;transform:translateY(-3px)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.panel{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px}
+.panel h2{margin:0 0 6px;font-size:1.5rem}
+.panel p{margin:0 0 16px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.fact{border-left:4px solid var(--accent);padding:2px 12px}
+.fact b{display:block;font-size:.8rem;color:var(--muted);font-weight:500}
+input[type=search]{width:100%;font:inherit;padding:12px 16px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.results{display:grid;gap:8px;margin-top:12px;max-height:340px;overflow-y:auto}
+.res{font:inherit;text-align:left;cursor:pointer;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.res{display:flex;align-items:center;gap:12px}.res small{color:var(--muted);margin-left:8px}.av{width:48px;height:48px;flex:none}.avl{width:130px;height:130px;display:block;margin:0 0 8px}
+.none{color:var(--muted);margin:12px 0 0}
+.back{font:inherit;cursor:pointer;background:none;border:0;color:var(--teal);padding:0;margin-bottom:12px;font-weight:600}
+.article h3{margin:20px 0 4px;font-size:1.05rem;color:var(--teal)}
+.article p{margin:0;color:var(--ink)}
+.opt.wide{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:12px;padding:18px}.opt.wide .e{display:inline;font-size:2.2rem}.opt.wide b{display:inline}.big{display:block;width:100%;font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:14px;padding:14px;background:var(--accent);color:#12353b;margin:0 0 12px}.panel .st{color:var(--muted);font-size:.92rem;margin:0 0 14px}.mlink{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:10px}.mlink small{display:block;color:var(--muted)}a:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.pimg,.pph{width:72px;height:72px;border-radius:16px;flex:none;object-fit:cover;background:var(--line)}.pph{display:flex;align-items:center;justify-content:center;font-size:2.2rem}.badge{font-size:.7rem;background:var(--accent);color:#12353b;border-radius:99px;padding:1px 8px;margin-left:8px;vertical-align:middle}
+.chips{display:flex;gap:8px;margin:0 0 14px}.chip{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:6px 16px}.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#12353b}.cards{display:grid;gap:12px}.gi{width:64px;height:64px;flex:none}.gc{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--bg)}.gc h3{margin:0;font-size:1.05rem}.gc .tag{margin:2px 0 6px;font-size:.85rem;color:var(--muted)}.gc p{margin:0 0 6px;color:var(--ink)}.gc .w{font-size:.9rem;color:var(--muted)}
+.note{background:var(--warn);color:var(--warnink);border-radius:14px;padding:12px 16px;font-size:.92rem;margin-top:20px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+a.back{display:inline-block;margin-top:24px;text-decoration:none;color:var(--teal);font-weight:600}.sm{font-size:clamp(2rem,10vw,3.4rem)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Back to PET CARE</a>
+  <h1 class="sm">ADOPT A PET</h1>
+  <p class="sub">Pets looking for a new home</p>
+  <div class="panel">
+    <p>Every listing is checked by the site owner before it appears here.</p>
+    <div id="sub"></div>
+    <div class="chips"><button class="chip" data-f="all" aria-pressed="true">All</button><button class="chip" data-f="Cat" aria-pressed="false">Cat</button><button class="chip" data-f="Dog" aria-pressed="false">Dog</button></div>
+    <div class="cards" id="cards"></div>
+    <div class="note"><b>Stay safe.</b> Never pay money before meeting a pet in person. Meet in a public place, ask for vet and vaccination records, and check who you are dealing with. Listings come from the public, and the site owner cannot guarantee they are accurate.</div>
+  </div>
+</div>
+<script>
+// 1) Paste your Google Form link between the quotes below.
+var FORM_URL="";
+// 2) Add one object per approved pet. For a photo, upload it to the repository and put its path in img, e.g. "images/mochi.jpg".
+var PETS=[
+ {name:"Mochi",sp:"Cat",breed:"Mixed breed",age:"2 years",sex:"Female",city:"Example City",about:"Sample listing to show the layout. Replace with real, approved pets.",email:"example@example.com",img:"",sample:1},
+ {name:"Biscuit",sp:"Dog",breed:"Beagle mix",age:"4 years",sex:"Male",city:"Example City",about:"Sample listing to show the layout. Replace with real, approved pets.",email:"example@example.com",img:"",sample:1}
+];
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
+document.getElementById("sub").innerHTML=FORM_URL?'<a class="big" style="text-align:center;text-decoration:none" href="'+esc(FORM_URL)+'" target="_blank" rel="noopener">Submit a pet for adoption</a>':'<p class="st">Submissions are not open yet. The site owner needs to add the form link first.</p>';
+function petCards(f){
+  var out="";
+  PETS.forEach(function(p){
+    if(f!=="all"&&p.sp!==f)return;
+    var pic=p.img?'<img class="pimg" src="'+esc(p.img)+'" alt="'+esc(p.name)+'" loading="lazy">':'<div class="pph">'+(p.sp==="Cat"?"🐱":"🐶")+'</div>';
+    out+='<div class="gc">'+pic+'<div><h3>'+esc(p.name)+(p.sample?'<span class="badge">SAMPLE</span>':'')+'</h3><div class="tag">'+esc([p.sp,p.breed,p.age,p.sex,p.city].join(" · "))+'</div><p>'+esc(p.about)+'</p><div class="w">Contact: <a href="mailto:'+esc(p.email)+'">'+esc(p.email)+'</a></div></div></div>';
+  });
+  document.getElementById("cards").innerHTML=out||'<p class="st">No listings yet.</p>';
+}
+var chips=document.querySelectorAll(".chip");
+chips.forEach(function(c){c.onclick=function(){chips.forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false")});petCards(c.dataset.f)}});
+petCards("all");
+</script>
+</body>
+</html>

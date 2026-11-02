@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PET CARE</title>
+<style>
+:root{
+  box-sizing:border-box;
+  --bg:#eef6f7;--ink:#12353b;--muted:#4d6c71;--card:#fff;--accent:#ffc83d;--teal:#1f7a85;--line:#cfe3e6;--warn:#fff4cf;--warnink:#5b4500;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e2226;--ink:#e6f3f4;--muted:#9bbcc0;--card:#16333a;--teal:#5fc4d0;--line:#25474f;--warn:#3a3213;--warnink:#f3dc8a}}
+:root[data-theme="dark"]{--bg:#0e2226;--ink:#e6f3f4;--muted:#9bbcc0;--card:#16333a;--teal:#5fc4d0;--line:#25474f;--warn:#3a3213;--warnink:#f3dc8a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,"Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 48px}
+h1{font-size:clamp(2.8rem,14vw,5rem);line-height:1;margin:48px 0 8px;font-weight:900;letter-spacing:.04em;text-align:center}
+.sub{text-align:center;color:var(--muted);margin:0 0 32px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{font:inherit;cursor:pointer;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:24px;padding:28px 12px;text-align:center;transition:background .2s,border-color .2s,transform .2s}
+.opt .e{display:block;font-size:3.4rem;line-height:1.2}
+.opt b{display:block;font-size:1.4rem}
+.opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#12353b;transform:translateY(-3px)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.panel{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px}
+.panel h2{margin:0 0 6px;font-size:1.5rem}
+.panel p{margin:0 0 16px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.fact{border-left:4px solid var(--accent);padding:2px 12px}
+.fact b{display:block;font-size:.8rem;color:var(--muted);font-weight:500}
+input[type=search]{width:100%;font:inherit;padding:12px 16px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.results{display:grid;gap:8px;margin-top:12px;max-height:340px;overflow-y:auto}
+.res{font:inherit;text-align:left;cursor:pointer;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.res{display:flex;align-items:center;gap:12px}.res small{color:var(--muted);margin-left:8px}.av{width:48px;height:48px;flex:none}.avl{width:130px;height:130px;display:block;margin:0 0 8px}
+.none{color:var(--muted);margin:12px 0 0}
+.back{font:inherit;cursor:pointer;background:none;border:0;color:var(--teal);padding:0;margin-bottom:12px;font-weight:600}
+.article h3{margin:20px 0 4px;font-size:1.05rem;color:var(--teal)}
+.article p{margin:0;color:var(--ink)}
+a.opt{text-decoration:none}.opt.wide{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:12px;padding:18px}.opt.wide .e{display:inline;font-size:2.2rem}.opt.wide b{display:inline}.big{display:block;width:100%;font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:14px;padding:14px;background:var(--accent);color:#12353b;margin:0 0 12px}.panel .st{color:var(--muted);font-size:.92rem;margin:0 0 14px}.mlink{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:10px}.mlink small{display:block;color:var(--muted)}a:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.pimg,.pph{width:72px;height:72px;border-radius:16px;flex:none;object-fit:cover;background:var(--line)}.pph{display:flex;align-items:center;justify-content:center;font-size:2.2rem}.badge{font-size:.7rem;background:var(--accent);color:#12353b;border-radius:99px;padding:1px 8px;margin-left:8px;vertical-align:middle}
+.chips{display:flex;gap:8px;margin:0 0 14px}.chip{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:6px 16px}.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#12353b}.cards{display:grid;gap:12px}.gi{width:64px;height:64px;flex:none}.gc{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--bg)}.gc h3{margin:0;font-size:1.05rem}.gc .tag{margin:2px 0 6px;font-size:.85rem;color:var(--muted)}.gc p{margin:0 0 6px;color:var(--ink)}.gc .w{font-size:.9rem;color:var(--muted)}
+.note{background:var(--warn);color:var(--warnink);border-radius:14px;padding:12px 16px;font-size:.92rem;margin-top:20px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>PET CARE</h1>
+  <p class="sub">Choose a topic</p>
+  <div class="options">
+    <button class="opt" data-k="cat" aria-pressed="false"><span class="e">🐱</span><b>Cat</b></button>
+    <button class="opt" data-k="dog" aria-pressed="false"><span class="e">🐶</span><b>Dog</b></button>
+    
+    
+    <a class="opt wide" href="adopt.html"><span class="e">🏠</span><b>Adopt a Pet</b></a>
+    <button class="opt wide" data-k="map" aria-pressed="false"><span class="e">📍</span><b>Vet Map</b></button>
+  </div>
+  <div class="panel" id="panel" aria-live="polite" hidden></div>
+</div>
+<script>
+var intro={
+ cat:{n:"Cat",d:"Independent but affectionate. Search your cat’s breed to read its profile.",life:"12–18 years",time:"30–60 min a day",cost:"Medium",ph:"Search cat breed, e.g. Ragdoll or 布偶"},
+ dog:{n:"Dog",d:"Energetic and social. Search your dog’s breed to read its profile.",life:"10–15 years",time:"1–2 hours a day",cost:"Higher",ph:"Search dog breed, e.g. Corgi or 柯基"}
+};
+// [English, 中文, size, lifespan, personality, exercise, grooming, feeding, health]
+var breeds={
+cat:[
+["Persian","波斯猫","Medium, 3.5–5.5 kg","12–17 years","Calm, gentle and quiet. Enjoys lounging and prefers a peaceful home over a busy one.","Low energy. Short, gentle play sessions each day are enough.","Long coat mats quickly: brush daily, wipe tear stains and bathe regularly.","Measure portions to avoid weight gain. Shallow bowls suit flat faces.","Flat face can cause breathing and eye problems. Prone to polycystic kidney disease (PKD) and dental crowding."],
+["Siamese","暹罗猫","Medium, 3–5 kg","12–20 years","Very vocal, social and clever. Bonds closely with its people and dislikes being left alone for long.","High. Needs daily interactive play and puzzle toys.","Short coat. Weekly brushing is enough.","Slim and active. Feed a balanced high-protein diet and watch portions.","Dental disease, asthma-like airway problems, and some lines carry progressive retinal atrophy (PRA)."],
+["Maine Coon","缅因猫","Large, 4.5–8 kg","12–15 years","Gentle giant. Friendly, playful and often follows its owner around like a dog.","Moderate. Provide sturdy, tall climbing trees and regular play.","Thick coat: brush 2–3 times a week and check for mats.","Grows slowly until 3–5 years old. Use a quality diet and controlled portions.","Hypertrophic cardiomyopathy (HCM), hip dysplasia and spinal muscular atrophy. Ask about health screening."],
+["British Shorthair","英国短毛猫","Medium–large, 4–8 kg","12–17 years","Easygoing and calm. Affectionate without being clingy, and copes with alone time fairly well.","Moderate. Tends to be lazy, so encourage play.","Dense short coat: brush weekly, more often when shedding.","Prone to obesity. Measure every meal.","HCM, obesity and, in some lines, PKD."],
+["Ragdoll","布偶猫","Large, 4.5–9 kg","12–17 years","Docile and affectionate. Often goes limp when held and follows its owner. Best kept indoors.","Gentle play and a cat tree.","Semi-long silky coat: brush 2–3 times a week.","Large and slow to mature. Feed a balanced diet and prevent obesity.","HCM and bladder stones are the main concerns."],
+["Bengal","孟加拉猫","Medium–large, 3.5–7 kg","12–16 years","Energetic, athletic and curious. Loves climbing and sometimes water. Gets bored easily.","High. Needs an hour or more of interactive play and plenty of climbing space.","Short coat: weekly brushing.","High-protein diet to match its activity level.","HCM and PRA. A bored Bengal can become destructive."],
+["Scottish Fold","苏格兰折耳猫","Medium, 2.7–6 kg","11–14 years","Sweet, quiet and adaptable. Enjoys company and gentle play.","Moderate play and a few climbing spots.","Weekly brushing. Check and clean the ears gently.","Normal balanced diet. Keep weight healthy to protect joints.","The folded-ear gene is linked to painful bone and joint disease (osteochondrodysplasia). Many vets and welfare groups discourage breeding it. Talk to a vet early."],
+["Sphynx","斯芬克斯猫","Medium, 3.5–7 kg","8–14 years","Outgoing, attention-seeking and clownish. Loves warmth and cuddles.","High. Likes playing and climbing.","No fur, so skin oil builds up: bathe about weekly, clean ears often and keep it warm and out of strong sun.","High metabolism, so it eats more than most cats.","HCM, skin problems and dental disease."],
+["Russian Blue","俄罗斯蓝猫","Medium, 3–5.5 kg","15–20 years","Quiet, loyal and gentle. Shy with strangers and sensitive to change.","Moderate. Enjoys chasing toys.","Dense double coat: brush weekly.","Likes to overeat, so measure portions.","Generally healthy. Watch weight and bladder stones."],
+["Abyssinian","阿比西尼亚猫","Medium, 3–5 kg","12–15 years","Active, curious and social. A natural climber that wants to be involved in everything.","High. Needs climbing space and daily play.","Short ticked coat: minimal brushing.","Balanced diet matched to its high activity.","PRA, pyruvate kinase deficiency, kidney amyloidosis and gum disease."]
+],
+dog:[
+["Labrador Retriever","拉布拉多","Large, 25–36 kg","10–12 years","Friendly, outgoing and eager to please. Great with families and children.","1–2 hours a day. Loves fetch and swimming.","Short double coat: brush weekly. Sheds a lot.","Very food-driven and prone to obesity. Measure meals and avoid free feeding.","Hip and elbow dysplasia, obesity, ear infections and exercise-induced collapse."],
+["Golden Retriever","金毛","Large, 25–34 kg","10–12 years","Gentle, patient and intelligent. Very friendly, so it makes a poor guard dog.","1–2 hours a day plus mental play.","Feathered coat: brush several times a week. Sheds year-round.","Measure portions to prevent weight gain.","Hip and elbow dysplasia, certain cancers, heart conditions and ear infections."],
+["German Shepherd","德国牧羊犬","Large, 22–40 kg","9–13 years","Loyal, confident and highly trainable. Protective, so it needs early socialisation and a job to do.","About 2 hours a day including training and mental tasks.","Double coat: brush a few times a week, daily during heavy seasonal shedding.","Large-breed diet. Avoid hard exercise right after meals because of bloat risk.","Hip and elbow dysplasia, degenerative myelopathy and bloat."],
+["French Bulldog","法国斗牛犬","Small, 8–14 kg","10–12 years","Playful, affectionate and clownish, with a stubborn streak.","Short, easy walks. Avoid heat and hard exercise.","Wipe facial folds daily and brush weekly.","Prone to weight gain and gas. Measure meals.","Flat-face (brachycephalic) breathing problems, overheating, spinal issues and skin-fold infections. Many cannot mate or give birth naturally."],
+["Poodle","贵宾 / 泰迪","Toy to standard, 3–32 kg","12–15 years","Very intelligent, active and trainable. Sensitive and thrives on attention.","30 minutes (toy) to 1 hour or more (standard), plus mental games.","Sheds little but mats: brush every day or two and trim every 4–8 weeks.","Feed according to size. Toy types need small meals and dental care.","Dental disease, patellar luxation, PRA, Addison’s disease, and hip dysplasia in standards."],
+["Corgi","柯基","Small–medium, 10–14 kg","12–14 years","Bold, smart and affectionate. Has a herding instinct, so it may bark or nip at heels.","About 1 hour a day. Avoid jumping from heights.","Sheds heavily: brush several times a week.","Prone to obesity, which strains the back.","Intervertebral disc disease, hip dysplasia and degenerative myelopathy."],
+["Border Collie","边境牧羊犬","Medium, 14–20 kg","12–15 years","Extremely intelligent and driven. Needs a job and is not suited to sedentary homes.","2 hours or more plus daily mental tasks.","Brush about twice a week.","Feed to match a very active lifestyle.","Hip dysplasia, collie eye anomaly and epilepsy."],
+["Shiba Inu","柴犬","Small–medium, 8–11 kg","12–15 years","Independent, alert and proud. Cat-like and stubborn but loyal. Strong prey drive.","About 1 hour on a lead. Recall is often unreliable.","Heavy shedding twice a year: brush weekly, daily during shedding.","Measure meals to avoid weight gain.","Allergies, patellar luxation, glaucoma and hip dysplasia."],
+["Siberian Husky","哈士奇","Medium–large, 16–27 kg","12–14 years","Friendly, mischievous and vocal. A clever escape artist that dislikes being left alone.","2 hours or more of running or pulling activity.","Heavy shedding: brush several times a week. Do not shave.","Efficient metabolism, so avoid overfeeding.","Eye conditions (cataracts, PRA) and hip dysplasia. Struggles in hot climates."],
+["Pomeranian","博美","Toy, 2–3.5 kg","12–16 years","Lively, bold and curious. Often barks a lot.","About 30 minutes of short walks and play.","Double coat: brush several times a week. Do not shave.","Small, measured meals. Brush teeth often.","Patellar luxation, tracheal collapse, dental disease and low blood sugar in puppies. Use a harness, not a collar."],
+["Chihuahua","吉娃娃","Toy, 1.5–3 kg","14–16 years","Loyal and sassy. Often bonds to one person and can be wary of strangers and small children.","Short walks and indoor play.","Short coat: weekly brushing. Long coat needs more.","Small, frequent meals to avoid low blood sugar.","Dental disease, patellar luxation and heart disease. Fragile, so handle with care."],
+["Beagle","比格","Small–medium, 9–11 kg","12–15 years","Friendly, merry and curious. Follows its nose and may howl. Gets along well with others.","About 1 hour a day. Keep on a lead and use secure fencing.","Weekly brushing. Clean the ears regularly.","Obsessed with food and prone to obesity. Secure the bin and measure meals.","Ear infections, epilepsy, hypothyroidism and disc disease."]
+]};
+var BG='<circle cx="50" cy="50" r="50" style="fill:var(--line)"/>',PK='#f2a7b0';
+function poly(s,f,sc){var a=s.split(" ").map(function(p){return p.split(",").map(Number)}),cx=0,cy=0;a.forEach(function(p){cx+=p[0];cy+=p[1]});cx/=a.length;cy/=a.length;var t=sc?' transform="translate('+cx+' '+cy+') scale('+sc+') translate('+(-cx)+' '+(-cy)+')"':'';return '<polygon points="'+s+'" fill="'+f+'"'+t+'/>'}
+function mir(s){return s.split(" ").map(function(p){var a=p.split(",");return (100-a[0])+","+a[1]}).join(" ")}
+function el(cx,cy,rx,ry,f,r){return '<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="'+f+'"'+(r?' transform="rotate('+r+' '+cx+' '+cy+')"':'')+'/>'}
+function ci(cx,cy,r,f){return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+f+'"/>'}
+function ln(d,c,w,op){return '<path d="'+d+'" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round" fill="none"'+(op?' opacity="'+op+'"':'')+'/>'}
+var CE={p:"18,42 22,8 46,26",b:"14,44 12,2 44,26",s:"20,40 26,18 44,28",t:"18,42 20,4 46,26"},DE={p:"20,40 22,6 46,22",b:"10,50 14,0 44,24"};
+function drawCat(o){
+ var x=BG,pt=o.pt||o.c,ey=o.fl?58:54,w=o.w||1;
+ if(o.ruff)[[22,70],[34,84],[50,88],[66,84],[78,70],[14,56],[86,56]].forEach(function(p){x+=ci(p[0],p[1],10,o.c)});
+ if(o.ear=="f"){x+=el(30,32,12,8,pt,-30)+el(70,32,12,8,pt,30)}
+ else{var e=CE[o.ear];x+=poly(e,pt)+poly(mir(e),pt)+poly(e,PK,.5)+poly(mir(e),PK,.5)}
+ x+=el(50,58,34*w,30,o.c);
+ if(o.pt)x+=el(50,64,20,16,o.pt);else x+=el(50,67,13,9,'rgba(255,255,255,.4)');
+ if(o.st)x+=ln('M50 30V42',o.st,3)+ln('M42 31L43 41',o.st,3)+ln('M58 31L57 41',o.st,3)+ln('M17 56L27 58',o.st,2.5)+ln('M83 56L73 58',o.st,2.5);
+ if(o.sp)[[40,36],[58,34],[50,42],[22,58],[78,58],[30,70],[70,70]].forEach(function(p){x+=ci(p[0],p[1],3,o.sp)});
+ if(o.wr)x+=ln('M36 38Q50 33 64 38',o.wr,1.6)+ln('M38 44Q50 40 62 44',o.wr,1.6)+ln('M20 58Q26 62 22 68',o.wr,1.6)+ln('M80 58Q74 62 78 68',o.wr,1.6);
+ [36,64].forEach(function(px){x+=ci(px,ey,5.5,o.ey)+el(px,ey,1.8,4,'#1b1b1b')+ci(px-1.6,ey-2,1.2,'#fff')});
+ x+=poly("46,63 54,63 50,68",'#e58a97')+ln('M50 68Q46 73 42 70M50 68Q54 73 58 70','#4a3030',1.3);
+ if(!o.nw)x+=ln('M8 62L28 64M8 70L28 68M92 62L72 64M92 70L72 68','#5b5b5b',1,.5);
+ return x}
+function drawDog(o){
+ var x=BG,c=o.c,m=o.m,ec=o.ec||c,w=o.w||1,fl=o.fl;
+ if(o.ruff)[[22,64],[34,80],[50,86],[66,80],[78,64]].forEach(function(p){x+=ci(p[0],p[1],11,c)});
+ if(o.ear=="p"||o.ear=="b"){var e=DE[o.ear];x+=poly(e,ec)+poly(mir(e),ec)+poly(e,PK,.5)+poly(mir(e),PK,.5)}
+ if(o.ear=="r")x+=el(24,26,12,19,ec,-12)+el(76,26,12,19,ec,12)+el(24,27,6,12,PK,-12)+el(76,27,6,12,PK,12);
+ x+=el(50,52,32*w,30,c);
+ if(o.cap)x+=el(50,64,26,20,m);
+ if(o.bl)x+=poly("46,24 54,24 57,58 43,58",o.bl);
+ if(o.ear=="f"){var h=o.ln?26:21;x+=el(20,50,11,h,ec,12)+el(80,50,11,h,ec,-12)}
+ if(o.ear=="c")[[20,50,12],[17,64,11],[22,38,8],[80,50,12],[83,64,11],[78,38,8],[50,18,12],[38,22,9],[62,22,9]].forEach(function(p){x+=ci(p[0],p[1],p[2],c)});
+ x+=el(50,fl?64:67,16,fl?10:12,m)+el(50,fl?59:60,6,4.5,'#2b2224');
+ if(o.tg)x+=el(50,77,5,6.5,'#ef7f8e');
+ x+=ln('M50 64V70M50 70Q44 76 38 71M50 70Q56 76 62 71','#2b2224',1.3);
+ [38,62].forEach(function(px){x+=o.ey?ci(px,46,5,o.ey)+ci(px,46,2.4,'#222'):ci(px,46,4,'#222');x+=ci(px-1.2,44.5,1.2,'#fff')});
+ return x}
+var AV={cat:{"Persian":{c:"#f3e9dc",ear:"s",ey:"#e9922a",fl:1,ruff:1,w:1.08},"Siamese":{c:"#f1e2c4",pt:"#5a4033",ear:"b",ey:"#4a90d9"},"Maine Coon":{c:"#9a7451",ear:"t",ey:"#7aa646",st:"#5a3d22",ruff:1},"British Shorthair":{c:"#8e9aa8",ear:"s",ey:"#e9922a",w:1.1},"Ragdoll":{c:"#f3efe9",pt:"#a08c7a",ear:"s",ey:"#4a90d9"},"Bengal":{c:"#d9a14a",ear:"s",ey:"#7aa646",sp:"#6b3f1d"},"Scottish Fold":{c:"#cfcfcf",ear:"f",ey:"#f0c040",w:1.08},"Sphynx":{c:"#e8b7a8",ear:"b",ey:"#7aa646",wr:"#c98f80",nw:1},"Russian Blue":{c:"#7f93a6",ear:"p",ey:"#5cb85c"},"Abyssinian":{c:"#c2763a",ear:"b",ey:"#a8b84a",st:"#8a4e22"}},
+dog:{"Labrador Retriever":{c:"#e3c06a",m:"#efd899",ear:"f",ec:"#c9a24a",tg:1},"Golden Retriever":{c:"#dc9a40",m:"#eab76a",ear:"f",ec:"#c07f2a",tg:1},"German Shepherd":{c:"#c9873f",m:"#3a2f28",ear:"p",ec:"#3a2f28"},"French Bulldog":{c:"#d7b690",m:"#e3c8a8",ear:"r",fl:1,w:1.08},"Poodle":{c:"#e8c9a0",m:"#f0d9b8",ear:"c",tg:1},"Corgi":{c:"#e08a3a",m:"#ffffff",ear:"p",bl:"#ffffff",tg:1},"Border Collie":{c:"#2b2b2b",m:"#ffffff",ear:"f",ec:"#1c1c1c",bl:"#ffffff"},"Shiba Inu":{c:"#d9822b",m:"#f6ead7",ear:"p",tg:1},"Siberian Husky":{c:"#7d8794",cap:1,m:"#ffffff",ear:"p",ey:"#4a9fe0"},"Pomeranian":{c:"#e59a45",m:"#f0b570",ear:"p",ruff:1,w:.95},"Chihuahua":{c:"#d9b88a",m:"#e8cfa8",ear:"b"},"Beagle":{c:"#b9742f",m:"#ffffff",ear:"f",ec:"#6b3e1a",ln:1,bl:"#ffffff"}}};
+function avatar(k,name,cls){var o=AV[k][name];if(!o)return"";return '<svg class="'+cls+'" viewBox="0 0 100 100" role="img" aria-label="'+name+' illustration">'+(k=="cat"?drawCat(o):drawDog(o))+'</svg>'}
+var panel=document.getElementById("panel"),btns=document.querySelectorAll(".opt[data-k]"),cur=null;
+var NOTE='<div class="note"><b>For reference only.</b> This information is general and may not fit your individual pet. Please ask a vet or other qualified professional for advice on your pet’s health, diet and care.</div>';
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function show(k){
+  cur=k;var p=intro[k];
+  btns.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.k===k?"true":"false")});
+  panel.hidden=false;
+  panel.innerHTML="<h2>"+p.n+"</h2><p>"+p.d+"</p>"+
+   '<div class="facts"><div class="fact"><b>Typical lifespan</b>'+p.life+'</div><div class="fact"><b>Daily time</b>'+p.time+'</div><div class="fact"><b>Cost</b>'+p.cost+"</div></div>"+
+   '<div class="chips" id="tabs"><button class="chip" data-t="b" aria-pressed="true">Breeds</button><button class="chip" data-t="med" aria-pressed="false">Medicine</button><button class="chip" data-t="toy" aria-pressed="false">Toys</button></div><div id="tb">'+
+   '<input type="search" id="q" placeholder="'+p.ph+'" aria-label="Search breed" autocomplete="off">'+
+   '<div class="results" id="res"></div>'+NOTE+'</div><div id="tg" hidden><div class="cards" id="cards"></div><div id="gn"></div></div>';
+  var q=document.getElementById("q");
+  q.oninput=function(){list(q.value)};
+  var tabs=document.querySelectorAll("#tabs .chip");
+  tabs.forEach(function(c){c.onclick=function(){tabs.forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false")});var t=c.dataset.t;document.getElementById("tb").hidden=t!=="b";document.getElementById("tg").hidden=t==="b";if(t!=="b"){document.getElementById("gn").innerHTML=GU[t].note;cards(t,k)}}});
+  list("");
+}
+function list(v){
+  var res=document.getElementById("res"),t=v.trim().toLowerCase(),out="";
+  breeds[cur].forEach(function(b,i){
+    if(!t||b[0].toLowerCase().indexOf(t)>-1||b[1].indexOf(t)>-1)
+      out+='<button class="res" data-i="'+i+'">'+avatar(cur,b[0],"av")+'<span>'+b[0]+'<small>'+b[1]+'</small></span></button>';
+  });
+  res.innerHTML=out;
+  if(!out){var n=document.createElement("p");n.className="none";n.textContent="No match for “"+v.trim()+"”. Try another spelling or a Chinese name. Mixed breed? A vet can advise on your pet’s needs.";res.appendChild(n)}
+  Array.prototype.forEach.call(res.querySelectorAll(".res"),function(el){el.onclick=function(){article(+el.dataset.i)}});
+}
+function article(i){
+  var b=breeds[cur][i];
+  panel.innerHTML='<div class="article"><button class="back" id="back">← Back to search</button>'+
+   avatar(cur,b[0],"avl")+"<h2>"+b[0]+" · "+b[1]+"</h2>"+
+   '<div class="facts"><div class="fact"><b>Size</b>'+b[2]+'</div><div class="fact"><b>Typical lifespan</b>'+b[3]+"</div></div>"+
+   "<h3>Personality</h3><p>"+b[4]+"</p><h3>Exercise</h3><p>"+b[5]+"</p><h3>Grooming</h3><p>"+b[6]+"</p><h3>Feeding</h3><p>"+b[7]+"</p><h3>Common health concerns</h3><p>"+b[8]+"</p>"+NOTE+"</div>";
+  document.getElementById("back").onclick=function(){show(cur)};
+  panel.scrollIntoView({block:"start"});
+}
+// [name, for, type, what it is, caution]
+var GU={
+med:{n:"Pet Medicine",d:"Common medicines and health products. Prescription-only items must come from a vet.",note:'<div class="note"><b>For reference only.</b> Never give your pet human medicine or change a dose yourself. Doses depend on species, weight and health, and some products that are safe for dogs are dangerous for cats. Ask a vet or pharmacist before using any product. Brand names are examples, not recommendations, and availability varies by country.</div>',items:[
+["Spot-on flea treatment","both","Parasite control · vet or pharmacy","Liquid applied to the skin between the shoulder blades. Kills fleas, and some products also deal with ticks, for about a month. Examples: Frontline, Advantage.","Use a product made for the right species. Dog products containing permethrin are highly toxic to cats."],
+["Flea and tick chews or tablets","dog","Parasite control · vet supplied","Tasty chews that protect for one to three months depending on the product. Examples: NexGard, Bravecto, Simparica.","Dosed by weight. Tell the vet if your dog has ever had seizures."],
+["Worming treatment","both","Parasite control · vet or pharmacy","Tablets or spot-ons that remove roundworms and tapeworms. Usually given every one to three months. Examples: Drontal, Milbemax.","Choose by weight and species. Dogs may also need separate lungworm prevention."],
+["Vaccinations","both","Prevention · given by a vet","Dogs are usually protected against distemper, parvovirus, adenovirus and leptospirosis. Cats against cat flu, feline panleukopenia and, for many, feline leukaemia.","Start in puppyhood or kittenhood and keep boosters up to date."],
+["Anti-inflammatory pain relief","both","Pain · prescription only","Reduces pain and swelling from arthritis or after surgery. A common active ingredient is meloxicam (Metacam).","Never use human painkillers: paracetamol is toxic to cats, and ibuprofen is toxic to both dogs and cats."],
+["Antibiotics","both","Infection · prescription only","Treat bacterial infections of the skin, ears, teeth, bladder and more.","Give the full course as directed. Never use leftovers or another pet’s course."],
+["Allergy and itch medicine","dog","Skin · prescription only","Controls itching from allergies. Examples: Apoquel tablets and Cytopoint injections.","Find the cause of the itch with a vet first, since fleas and infections look similar."],
+["Probiotic gut paste","both","Digestion · over the counter","Supports the gut after a mild tummy upset or a course of antibiotics. Example: Pro-Kolin.","See a vet if there is blood, repeated vomiting or diarrhoea lasting more than a day or two."],
+["Joint supplements","both","Joints · over the counter","Glucosamine, chondroitin or green-lipped mussel to support stiff joints in older or large pets. Example: Yumove.","A supplement is not a painkiller. Ask a vet if your pet limps or struggles to move."],
+["Ear cleaner","both","Ears · over the counter","A gentle liquid that loosens wax and debris for routine cleaning.","Do not use on a painful, red or smelly ear. That needs a vet."],
+["Dental care","both","Teeth · over the counter","Pet toothpaste, brushes, water additives and dental chews that reduce plaque.","Never use human toothpaste. Xylitol and fluoride are harmful to pets."],
+["Hairball paste","cat","Digestion · over the counter","A malt-flavoured gel that helps swallowed hair pass through. Useful for long-haired cats.","Frequent coughing or retching can point to another problem, so check with a vet."]
+]},
+toy:{n:"Pet Toys",d:"Popular toys, what they are for and how to use them safely.",note:'<div class="note"><b>For reference only.</b> Supervise play, choose a size and toughness that suits your pet, and throw away toys that are broken or fraying. If your pet swallows part of a toy, contact a vet straight away.</div>',items:[
+["Rubber chew toy","dog","Chewing","A tough hollow rubber toy that can be stuffed with treats. Keeps dogs busy and satisfies the urge to chew. Example: Kong.","Pick the size and hardness for your dog’s chewing strength. Replace when cracked."],
+["Rope tug toy","dog","Interactive","Braided rope for tug-of-war with its owner. Good for bonding and burning energy.","Throw it away once it frays so loose threads are not swallowed."],
+["Balls and fetch toys","dog","Exercise","Rubber or rope balls for throwing and chasing, including ball launchers.","Choose a ball too big to swallow whole. Rough tennis-ball felt can wear down teeth."],
+["Flying disc","dog","Exercise","A soft rubber disc for throwing. Good for active dogs that love to catch.","Avoid too many high jumps, which strain the joints."],
+["Plush squeaky toy","dog","Comfort and play","A soft toy that squeaks. Good for carrying and cuddling.","Strong chewers can rip it open. Remove the toy if stuffing or the squeaker comes out."],
+["Dental chew toy","dog","Teeth","Ridged rubber toys that scrub teeth while chewing.","A helper, not a replacement for brushing."],
+["Puzzle feeder","both","Brain game","Food is hidden inside and has to be worked out. Slows fast eaters and prevents boredom.","Start with an easy level so your pet does not give up."],
+["Lick mat","both","Calming","A textured mat spread with wet food or plain yoghurt. Calming and good for bath time or vet prep.","Never use anything with xylitol. Wash it after each use."],
+["Treat-dispensing ball","both","Exercise and brain game","A ball that drops dry food or treats as it rolls.","Count the treats as part of the daily food allowance."],
+["Feather wand","cat","Interactive","A wand with a feather or a toy on a string that copies prey. One of the best ways to exercise a cat.","Put it away after play so the string is not swallowed."],
+["Catnip toy or kicker","cat","Play","Stuffed toys with catnip, which makes many cats playful. Long kicker toys are for bunny-kicking.","Not every cat responds, and kittens usually do not at first."],
+["Toy mice and light balls","cat","Solo play","Small toys for batting, pouncing and chasing around the house.","Remove loose bells, eyes or other small parts."],
+["Laser pointer","cat","Chasing","A moving dot for cats to chase. Great for a burst of exercise.","Never shine it in eyes. End by landing it on a real toy or treat so your cat can catch something."],
+["Tunnel or play box","cat","Hiding","A tunnel or cardboard box for hiding and ambushing. Cheap and loved by many cats.","Check there are no staples or sharp edges."],
+["Scratching post or cat tree","cat","Scratching and climbing","A sturdy post or tree for scratching, stretching and climbing. Protects furniture.","Choose a tall, stable one that does not wobble."]
+]}};
+var W="#fff";
+function rc(x,y,w,h,r,f,rot){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+r+'" fill="'+f+'"'+(rot?' transform="rotate('+rot+' '+(x+w/2)+' '+(y+h/2)+')"':'')+'/>'}
+var IC={
+"Spot-on flea treatment":rc(41,30,18,42,6,'#7fc8d6')+rc(43,20,14,12,3,W)+rc(44,40,12,18,2,W)+el(50,80,5,6,'#7fc8d6'),
+"Flea and tick chews or tablets":rc(26,34,48,32,14,'#c68a4a')+ci(40,46,3,'#8a5a2a')+ci(55,42,3,'#8a5a2a')+ci(48,56,3,'#8a5a2a')+ci(62,55,3,'#8a5a2a'),
+"Worming treatment":ci(40,50,18,W)+ln('M28 50H52','#b5c4cc',2)+rc(52,52,28,16,8,'#f4b860',-20),
+"Vaccinations":'<g transform="rotate(-35 50 50)">'+rc(30,42,36,16,3,W)+rc(34,46,18,8,2,'#6fd0a8')+ln('M66 50H82','#8c959a',2)+ln('M30 50H20','#555',3)+ln('M20 42V58','#555',3)+'</g>',
+"Anti-inflammatory pain relief":'<g transform="rotate(-30 50 50)">'+rc(22,40,56,20,10,W)+rc(22,40,28,20,10,'#e86a6a')+rc(40,40,10,20,0,'#e86a6a')+'</g>',
+"Antibiotics":rc(24,28,52,44,6,'#cfd8dc')+ci(38,42,6,'#f4b860')+ci(50,42,6,'#f4b860')+ci(62,42,6,'#f4b860')+ci(38,58,6,'#f4b860')+ci(50,58,6,'#f4b860')+ci(62,58,6,'#b0bec5'),
+"Allergy and itch medicine":rc(38,40,24,34,5,'#b79be0')+rc(40,28,20,12,3,'#8c959a')+rc(41,50,18,14,2,W),
+"Probiotic gut paste":rc(22,42,44,16,4,W)+rc(66,46,10,8,2,'#8c959a')+rc(28,46,26,8,3,'#f4b860')+ci(36,30,4,'#6fcf7f')+ci(50,26,4,'#6fcf7f')+ci(62,32,4,'#6fcf7f'),
+"Joint supplements":rc(30,44,40,12,0,W)+ci(30,43,7,W)+ci(30,57,7,W)+ci(70,43,7,W)+ci(70,57,7,W),
+"Ear cleaner":rc(36,46,28,32,8,'#6bb5e0')+rc(44,36,12,12,2,'#8c959a')+el(50,28,8,10,'#444')+rc(41,56,18,12,2,W)+el(74,40,4,6,'#6bb5e0'),
+"Dental care":'<path d="M34 34Q34 26 44 29Q50 31 56 29Q66 26 66 34Q66 48 61 58Q59 76 54 76Q50 76 50 64Q50 76 46 76Q41 76 39 58Q34 48 34 34Z" fill="#fff"/>'+poly("76,22 78,28 84,30 78,32 76,38 74,32 68,30 74,28",'#ffd24a'),
+"Hairball paste":poly("32,38 68,38 62,76 38,76",'#9bd17a')+rc(38,26,24,12,3,'#8c959a')+ci(50,56,7,W),
+"Rubber chew toy":el(50,68,22,13,'#e24b4b')+el(50,50,16,12,'#e24b4b')+el(50,35,10,8,'#e24b4b')+el(50,30,5,3,'#a82f2f'),
+"Rope tug toy":ln('M26 72L74 28','#d9b277',10)+ln('M32 70L40 62M44 58L52 50M56 46L64 38','#a8844d',2.5)+ci(24,74,8,'#d9b277')+ci(76,26,8,'#d9b277'),
+"Balls and fetch toys":ci(50,50,26,'#cfe34b')+ln('M28 36Q42 50 28 64','#fff',3)+ln('M72 36Q58 50 72 64','#fff',3),
+"Flying disc":el(50,56,34,14,'#e85d5d')+el(50,52,26,8,'#ff8a8a')+el(50,50,12,3.5,'#e85d5d'),
+"Plush squeaky toy":ci(32,32,9,'#b98957')+ci(68,32,9,'#b98957')+ci(50,52,24,'#b98957')+el(50,60,11,8,'#e8cfa8')+ci(41,46,2.5,'#222')+ci(59,46,2.5,'#222')+el(50,57,3,2,'#222'),
+"Dental chew toy":rc(28,44,44,12,0,'#4fb3a9')+ci(28,43,8,'#4fb3a9')+ci(28,57,8,'#4fb3a9')+ci(72,43,8,'#4fb3a9')+ci(72,57,8,'#4fb3a9')+ln('M42 44V56M50 44V56M58 44V56','#fff',2),
+"Puzzle feeder":rc(24,28,52,44,10,'#8ab4f8')+ci(38,42,5,'#2c4a8a')+ci(62,42,5,'#2c4a8a')+ci(38,58,5,'#2c4a8a')+ci(62,58,5,'#2c4a8a')+ci(50,50,3,'#f4b860'),
+"Lick mat":rc(22,32,56,36,10,'#f5a3c0')+ln('M32 42Q40 36 48 42T64 42','#fff',2.5)+ln('M32 52Q40 46 48 52T64 52','#fff',2.5)+ln('M32 61Q40 55 48 61T64 61','#fff',2.5),
+"Treat-dispensing ball":ci(46,46,26,'#f29b3a')+ci(36,38,4,'#8a4e12')+ci(52,34,4,'#8a4e12')+ci(56,52,4,'#8a4e12')+ci(40,56,4,'#8a4e12')+rc(70,64,8,5,2,'#c68a4a',30)+rc(64,76,8,5,2,'#c68a4a',-20),
+"Feather wand":ln('M28 78L58 44','#9a6a3a',4)+ln('M58 44Q70 50 66 62','#555',1.5)+el(72,30,8,18,'#ef7fa0',40)+ci(66,64,3,'#ffd24a'),
+"Catnip toy or kicker":el(46,52,24,14,'#7ec8a0')+poly("66,52 82,40 82,64",'#7ec8a0')+ci(34,48,2.5,'#222')+el(46,28,5,10,'#3fa35b',30)+el(58,30,5,9,'#3fa35b',60),
+"Toy mice and light balls":el(50,58,24,16,'#b8bec4')+ci(38,44,8,'#b8bec4')+ci(58,42,8,'#b8bec4')+ci(38,44,4,PK)+ci(58,42,4,PK)+ln('M74 60Q88 58 82 72','#d99aa4',2.5)+ci(34,58,2.2,'#222')+ci(28,62,2.5,'#e58a97'),
+"Laser pointer":rc(20,60,34,12,6,'#d44848',-20)+ln('M52 56L72 38','#ff4d4d',2.5,.7)+ci(74,36,11,'rgba(255,77,77,.3)')+ci(74,36,5,'#ff4d4d'),
+"Tunnel or play box":el(26,56,10,20,'#f3a54a')+rc(26,36,44,40,0,'#f3a54a')+el(70,56,10,20,'#7a4a12')+ln('M40 36V76M54 36V76','#d98a2a',3),
+"Scratching post or cat tree":rc(28,74,44,8,3,'#b58a5a')+rc(44,32,12,42,0,'#d9b277')+ln('M44 40H56M44 48H56M44 56H56M44 64H56','#a8844d',2)+rc(32,24,36,8,4,'#b58a5a')
+};
+function ico(n){return '<svg class="gi" viewBox="0 0 100 100" aria-hidden="true">'+BG+(IC[n]||"")+'</svg>'}
+function guide(k){
+  var g=GU[k];
+  btns.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.k===k?"true":"false")});
+  panel.hidden=false;
+  panel.innerHTML="<h2>"+g.n+"</h2><p>"+g.d+"</p>"+'<div class="chips"><button class="chip" data-f="all" aria-pressed="true">All</button><button class="chip" data-f="cat" aria-pressed="false">Cat</button><button class="chip" data-f="dog" aria-pressed="false">Dog</button></div><div class="cards" id="cards"></div>'+g.note;
+  var chips=panel.querySelectorAll(".chip");
+  chips.forEach(function(c){c.onclick=function(){chips.forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false")});cards(k,c.dataset.f)}});
+  cards(k,"all");
+}
+function cards(k,f){
+  var lab={cat:"Cat",dog:"Dog",both:"Cat and dog"},out="";
+  GU[k].items.forEach(function(it){
+    if(f==="all"||it[1]===f||it[1]==="both")
+      out+='<div class="gc">'+ico(it[0])+'<div><h3>'+it[0]+'</h3><div class="tag">'+lab[it[1]]+" · "+it[2]+"</div><p>"+it[3]+'</p><div class="w">'+it[4]+"</div></div></div>";
+  });
+  document.getElementById("cards").innerHTML=out;
+}
+function mapUrls(la,lo){
+  var n=la===null;
+  return [["Google Maps","Nearby vet clinics",n?"https://www.google.com/maps/search/?api=1&query=veterinary+clinic+near+me":"https://www.google.com/maps/search/veterinary+clinic/@"+la+","+lo+",14z"],["Google Maps","24-hour emergency vets",n?"https://www.google.com/maps/search/?api=1&query=24+hour+emergency+vet+near+me":"https://www.google.com/maps/search/24+hour+emergency+vet/@"+la+","+lo+",13z"],["Apple Maps","Nearby vet clinics",n?"https://maps.apple.com/?q=veterinary%20clinic":"https://maps.apple.com/?q=veterinary%20clinic&ll="+la+","+lo]];
+}
+function mapView(){
+  btns.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.k==="map"?"true":"false")});
+  panel.hidden=false;
+  panel.innerHTML='<h2>Find a vet near you</h2><p>Use your phone’s location to open a map of the closest vet clinics.</p><button class="big" id="loc">Use my location</button><p class="st" id="st">Tap the button above, or open a map directly below.</p><div id="ml"></div><div class="note"><b>Please check before you go.</b> This page does not list clinics itself. It opens your map app, so distance, opening hours and ratings come from the map service. In an emergency, phone the clinic first. Your location stays on your device until you open a map link.</div>';
+  var st=document.getElementById("st"),ml=document.getElementById("ml");
+  function links(la,lo){ml.innerHTML=mapUrls(la,lo).map(function(u){return '<a class="mlink" href="'+u[2]+'" target="_blank" rel="noopener"><span>🗺️</span><span><b>'+u[0]+'</b><small>'+u[1]+'</small></span></a>'}).join("")}
+  links(null,null);
+  document.getElementById("loc").onclick=function(){
+    if(!navigator.geolocation){st.textContent="Location is not available here. The links below still search near you in your map app.";return}
+    st.textContent="Finding your location…";
+    navigator.geolocation.getCurrentPosition(function(p){links(p.coords.latitude.toFixed(4),p.coords.longitude.toFixed(4));st.textContent="Location found. Open a map below to see vets near you."},function(){st.textContent="Could not get your location. Allow location access for this page, or use the links below, which search near you in your map app."},{timeout:10000,maximumAge:60000});
+  };
+}
+btns.forEach(function(b){b.onclick=function(){var k=b.dataset.k;if(k==="map")mapView();else if(GU[k])guide(k);else show(k)}});
+</script>
+</body>
+</html>
